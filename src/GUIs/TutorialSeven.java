@@ -81,6 +81,15 @@ public class TutorialSeven extends javax.swing.JFrame {
             normalSettings.setSize(WidthSize, HeightSize);
             normalSettings.setVisible(true);
             this.dispose();
+        }else if (ExitLocation.equals("Story")){
+            GUIs.NormalSettings normalSettings = new GUIs.NormalSettings();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            normalSettings.setSize(WidthSize, HeightSize);
+            normalSettings.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_ExitButtonActionPerformed
 

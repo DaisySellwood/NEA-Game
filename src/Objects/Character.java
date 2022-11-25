@@ -1,8 +1,6 @@
-
 package Objects;
 
 import java.time.LocalDate;
-
 
 public class Character {
     
@@ -25,10 +23,8 @@ public class Character {
         this.LastDomainDate = LastDomainDate;
         this.HighScore = HighScore;
     }
-   
-   
-   // <editor-fold defaultstate="collapsed" desc="Getters">
 
+   // <editor-fold defaultstate="collapsed" desc="Getters">
     public int getCharacterID() {
         return CharacterID;
     }
@@ -63,7 +59,6 @@ public class Character {
     //</editor-fold>
     
    // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setCharacterID(int CharacterID) {
         this.CharacterID = CharacterID;
     }

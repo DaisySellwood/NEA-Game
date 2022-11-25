@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class Item {
     
@@ -21,7 +19,6 @@ public class Item {
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters">
-
     public int getItemID() {
         return ItemID;
     }
@@ -45,11 +42,8 @@ public class Item {
     public String getDomain() {
         return Domain;
     }
-    
     //</editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setItemID(int ItemID) {
         this.ItemID = ItemID;
     }
@@ -73,7 +67,5 @@ public class Item {
     public void setDomain(String Domain) {
         this.Domain = Domain;
     }
-    
     //</editor-fold>
-    
 }

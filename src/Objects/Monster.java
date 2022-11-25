@@ -1,12 +1,6 @@
-
 package Objects;
 
-import java.util.Random;
-
-
-public class Monster {  
-    
-public static Random rand = new Random();    
+public class Monster {     
 
 private int MonsterID;
 private String MonsterName;
@@ -25,7 +19,6 @@ private String MonsterType;
     }
 
 // <editor-fold defaultstate="collapsed" desc="Getters">
-
     public int getMonsterID() {
         return MonsterID;
     }
@@ -49,11 +42,8 @@ private String MonsterType;
     public String getMonsterType() {
         return MonsterType;
     }
-    
     //</editor-fold>
-    
 // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setMonsterID(int MonsterID) {
         this.MonsterID = MonsterID;
     }
@@ -77,18 +67,5 @@ private String MonsterType;
     public void setMonsterType(String MonsterType) {
         this.MonsterType = MonsterType;
     }
-    
     //</editor-fold>
-    
-// <editor-fold defaultstate="collapsed" desc="Other Monster Functions">
-    
-    public static int GenerateAttackPower(Objects.Monster CurrentMonster){
-        int MaxAttack = CurrentMonster.getMaxMonsterAttack();
-        int MinAttack = CurrentMonster.getMinMonsterAttack();
-        
-        int Attack = (rand.nextInt(MaxAttack-MinAttack)+MinAttack)+1;
-        return Attack;
-    }
-    
-//</editor-fold>
 }

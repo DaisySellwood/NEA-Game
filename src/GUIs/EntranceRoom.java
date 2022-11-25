@@ -1,19 +1,21 @@
-
 package GUIs;
 
 import java.awt.Toolkit;
+import java.util.Random;
 
 public class EntranceRoom extends javax.swing.JFrame {
-    
+
     Toolkit tk = Toolkit.getDefaultToolkit();
+    Random rand = new Random();
 
     public EntranceRoom() {
         initComponents();
-        
+
+        GUIs.DifficultySelectScreen.BattleCheck = false;
+
         FrontDoorLockedMessage.setVisible(false);
         OkButton.setVisible(false);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -23,6 +25,7 @@ public class EntranceRoom extends javax.swing.JFrame {
         DownwardsButton = new javax.swing.JButton();
         OkButton = new javax.swing.JButton();
         FrontDoorLockedMessage = new javax.swing.JLabel();
+        SettingsButton = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,6 +65,17 @@ public class EntranceRoom extends javax.swing.JFrame {
         getContentPane().add(FrontDoorLockedMessage);
         FrontDoorLockedMessage.setBounds(710, 370, 510, 310);
 
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Settings Icon.png"))); // NOI18N
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setContentAreaFilled(false);
+        SettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SettingsButton);
+        SettingsButton.setBounds(10, 10, 200, 210);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Entrance Room.jpg"))); // NOI18N
         getContentPane().add(Background);
         Background.setBounds(1, 6, 1930, 1090);
@@ -77,14 +91,41 @@ public class EntranceRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_DownwardsButtonActionPerformed
 
     private void ForwardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardButtonActionPerformed
-        GUIs.MainHall mainHall = new GUIs.MainHall();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        mainHall.setSize(WidthSize, HeightSize);
-        mainHall.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.MainHall mainHall = new GUIs.MainHall();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                mainHall.setSize(WidthSize, HeightSize);
+                mainHall.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.MainHall mainHall = new GUIs.MainHall();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            mainHall.setSize(WidthSize, HeightSize);
+            mainHall.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_ForwardButtonActionPerformed
 
     private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
@@ -94,7 +135,20 @@ public class EntranceRoom extends javax.swing.JFrame {
         ForwardButton.setVisible(true);
     }//GEN-LAST:event_OkButtonActionPerformed
 
-    
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        GUIs.DifficultySelectScreen.LastMovesStack.add("Entrance Room");
+
+        GUIs.NormalSettings.Type = "Story";
+        GUIs.NormalSettings normSets = new GUIs.NormalSettings();
+
+        int WidthSize = (int) tk.getScreenSize().getWidth();
+        int HeightSize = (int) tk.getScreenSize().getHeight();
+
+        normSets.setSize(WidthSize, HeightSize);
+        normSets.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_SettingsButtonActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -133,5 +187,6 @@ public class EntranceRoom extends javax.swing.JFrame {
     private javax.swing.JButton ForwardButton;
     private javax.swing.JLabel FrontDoorLockedMessage;
     private javax.swing.JButton OkButton;
+    private javax.swing.JButton SettingsButton;
     // End of variables declaration//GEN-END:variables
 }

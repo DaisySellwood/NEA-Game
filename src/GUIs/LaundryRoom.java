@@ -1,4 +1,3 @@
-
 package GUIs;
 
 import java.awt.Toolkit;
@@ -8,31 +7,17 @@ public class LaundryRoom extends javax.swing.JFrame {
 
     Toolkit tk = Toolkit.getDefaultToolkit();
     private static Random rand = new Random();
-    
+
     public LaundryRoom() {
         initComponents();
-        
-        int Decider = rand.nextInt(1);
-        if (Decider == 1){
-        GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
-            
-        GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
-
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
-
-        StoryBattle.setSize(WidthSize, HeightSize);
-        StoryBattle.setVisible(true);
-        this.dispose();
-        }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         DownwardsButton = new javax.swing.JButton();
+        SettingsButton = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,6 +33,17 @@ public class LaundryRoom extends javax.swing.JFrame {
         getContentPane().add(DownwardsButton);
         DownwardsButton.setBounds(899, 845, 150, 230);
 
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Settings Icon.png"))); // NOI18N
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setContentAreaFilled(false);
+        SettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SettingsButton);
+        SettingsButton.setBounds(10, 10, 210, 220);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Laundry Room.jpg"))); // NOI18N
         getContentPane().add(Background);
         Background.setBounds(1, 6, 1930, 1090);
@@ -56,15 +52,56 @@ public class LaundryRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DownwardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DownwardsButtonActionPerformed
-        GUIs.MainHall mainHall = new GUIs.MainHall();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
+
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.MainHall mainHall = new GUIs.MainHall();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                mainHall.setSize(WidthSize, HeightSize);
+                mainHall.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.MainHall mainHall = new GUIs.MainHall();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            mainHall.setSize(WidthSize, HeightSize);
+            mainHall.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_DownwardsButtonActionPerformed
+
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        GUIs.DifficultySelectScreen.LastMovesStack.add("Laundry Room");
+
+        GUIs.NormalSettings.Type = "Story";
+        GUIs.NormalSettings normSets = new GUIs.NormalSettings();
 
         int WidthSize = (int) tk.getScreenSize().getWidth();
         int HeightSize = (int) tk.getScreenSize().getHeight();
 
-        mainHall.setSize(WidthSize, HeightSize);
-        mainHall.setVisible(true);
+        normSets.setSize(WidthSize, HeightSize);
+        normSets.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_DownwardsButtonActionPerformed
+    }//GEN-LAST:event_SettingsButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -101,5 +138,6 @@ public class LaundryRoom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JButton DownwardsButton;
+    private javax.swing.JButton SettingsButton;
     // End of variables declaration//GEN-END:variables
 }

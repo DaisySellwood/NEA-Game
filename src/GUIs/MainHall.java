@@ -1,4 +1,3 @@
-
 package GUIs;
 
 import java.awt.Toolkit;
@@ -8,25 +7,10 @@ public class MainHall extends javax.swing.JFrame {
 
     Toolkit tk = Toolkit.getDefaultToolkit();
     private static Random rand = new Random();
-    
+
     public MainHall() {
         initComponents();
-        
-        int Decider = rand.nextInt(1);
-        if (Decider == 1){
-        GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
-            
-        GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
-
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
-
-        StoryBattle.setSize(WidthSize, HeightSize);
-        StoryBattle.setVisible(true);
-        this.dispose();
-        }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -37,6 +21,7 @@ public class MainHall extends javax.swing.JFrame {
         LaundryButton = new javax.swing.JButton();
         BackRoomButton = new javax.swing.JButton();
         LibraryButton = new javax.swing.JButton();
+        SettingsButton = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,6 +77,17 @@ public class MainHall extends javax.swing.JFrame {
         getContentPane().add(LibraryButton);
         LibraryButton.setBounds(959, 595, 170, 110);
 
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Settings Icon.png"))); // NOI18N
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setContentAreaFilled(false);
+        SettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SettingsButton);
+        SettingsButton.setBounds(10, 20, 210, 200);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Main Hall.jpg"))); // NOI18N
         getContentPane().add(Background);
         Background.setBounds(1, 6, 1930, 1100);
@@ -111,49 +107,170 @@ public class MainHall extends javax.swing.JFrame {
     }//GEN-LAST:event_EntranceButtonActionPerformed
 
     private void StairsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StairsButtonActionPerformed
-        GUIs.Staircase stairs = new GUIs.Staircase();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Staircase");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        stairs.setSize(WidthSize, HeightSize);
-        stairs.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.Staircase stairs = new GUIs.Staircase();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                stairs.setSize(WidthSize, HeightSize);
+                stairs.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.Staircase stairs = new GUIs.Staircase();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            stairs.setSize(WidthSize, HeightSize);
+            stairs.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_StairsButtonActionPerformed
 
     private void LaundryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaundryButtonActionPerformed
-        GUIs.LaundryRoom laundry = new GUIs.LaundryRoom();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Laundry Room");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        laundry.setSize(WidthSize, HeightSize);
-        laundry.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.LaundryRoom laundry = new GUIs.LaundryRoom();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                laundry.setSize(WidthSize, HeightSize);
+                laundry.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.LaundryRoom laundry = new GUIs.LaundryRoom();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            laundry.setSize(WidthSize, HeightSize);
+            laundry.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_LaundryButtonActionPerformed
 
     private void BackRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackRoomButtonActionPerformed
-        GUIs.BackRoom backRoom = new GUIs.BackRoom();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Back Room");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        backRoom.setSize(WidthSize, HeightSize);
-        backRoom.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.BackRoom backRoom = new GUIs.BackRoom();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                backRoom.setSize(WidthSize, HeightSize);
+                backRoom.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.BackRoom backRoom = new GUIs.BackRoom();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            backRoom.setSize(WidthSize, HeightSize);
+            backRoom.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_BackRoomButtonActionPerformed
 
     private void LibraryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LibraryButtonActionPerformed
-        GUIs.LibraryRoom library = new GUIs.LibraryRoom();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Library Room");
+
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.LibraryRoom library = new GUIs.LibraryRoom();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                library.setSize(WidthSize, HeightSize);
+                library.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.LibraryRoom library = new GUIs.LibraryRoom();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            library.setSize(WidthSize, HeightSize);
+            library.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_LibraryButtonActionPerformed
+
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
+
+        GUIs.NormalSettings.Type = "Story";
+        GUIs.NormalSettings normSets = new GUIs.NormalSettings();
 
         int WidthSize = (int) tk.getScreenSize().getWidth();
         int HeightSize = (int) tk.getScreenSize().getHeight();
 
-        library.setSize(WidthSize, HeightSize);
-        library.setVisible(true);
+        normSets.setSize(WidthSize, HeightSize);
+        normSets.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_LibraryButtonActionPerformed
-
+    }//GEN-LAST:event_SettingsButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -185,9 +302,6 @@ public class MainHall extends javax.swing.JFrame {
                 new MainHall().setVisible(true);
             }
         });
-        
-
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -196,6 +310,7 @@ public class MainHall extends javax.swing.JFrame {
     private javax.swing.JButton EntranceButton;
     private javax.swing.JButton LaundryButton;
     private javax.swing.JButton LibraryButton;
+    private javax.swing.JButton SettingsButton;
     private javax.swing.JButton StairsButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,7 @@ public class DomainSuccessScreen extends javax.swing.JFrame {
         initComponents();
         
         UpdateDomainAmount();
+        UpdateDomainDate();
         GetRewards();
         
         RewardsLabel.setText(Rewards.get(0).getItemName()+", "+Rewards.get(1).getItemName()+", "+Rewards.get(2).getItemName());
@@ -110,6 +111,16 @@ public class DomainSuccessScreen extends javax.swing.JFrame {
         Other.Utilities.UpdateCurrentCharacter(UpdatedCharacter);
     }
     
+    private void UpdateDomainDate(){
+        String CurrentDate = Other.Utilities.GetCurrentDate();
+        String DomainDate = Other.NEAGame.CurrentCharacter.get(0).getLastDomainDate();
+        if (!CurrentDate.equals(DomainDate)){
+            Objects.Character UpdatedCharacter = new Objects.Character(Other.NEAGame.CurrentCharacter.get(0).getCharacterID(), Other.NEAGame.CurrentCharacter.get(0).getUsername(), Other.NEAGame.CurrentCharacter.get(0).getNickname(), Other.NEAGame.CurrentCharacter.get(0).getCharacterGender(), Other.NEAGame.CurrentCharacter.get(0).getClassID(), Other.NEAGame.CurrentCharacter.get(0).getDomainAmount(), CurrentDate, Other.NEAGame.CurrentCharacter.get(0).getHighScore());
+            Other.SQLStatements.UpdateCharacter(UpdatedCharacter, UpdatedCharacter.getUsername());
+            Other.Utilities.UpdateCurrentCharacter(UpdatedCharacter);
+        }
+    }
+    
     private void GetRewards(){
         Objects.Item Potion = new Objects.Item(18, "Health Potion", "Potion", "Healing", 20, "N/A");
         Rewards.add(Potion);
@@ -119,8 +130,7 @@ public class DomainSuccessScreen extends javax.swing.JFrame {
         for (int i = 0; i < 2; i++) {
             int RandomNum = rand.nextInt(AllDomainItems.size());
             Rewards.add(AllDomainItems.get(RandomNum));
-        }
-        
+        } 
     }
     
     private void AddRewardsToDatabase(){

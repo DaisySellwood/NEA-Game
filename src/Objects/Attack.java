@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class Attack {
     
@@ -19,7 +17,6 @@ public class Attack {
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters">
-
     public int getAttackID() {
         return AttackID;
     }

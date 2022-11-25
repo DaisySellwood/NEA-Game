@@ -1,6 +1,3 @@
-
-// label.setText(String.valueOf(variable));
-
 package GUIs;
 
 import GUIs.*;
@@ -142,7 +139,6 @@ public class SelectACharacterScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        
         GUIs.LoginScreen login = new GUIs.LoginScreen();
 
         int WidthSize = (int) tk.getScreenSize().getWidth();
@@ -151,7 +147,6 @@ public class SelectACharacterScreen extends javax.swing.JFrame {
         login.setSize(WidthSize, HeightSize);
         login.setVisible(true);
         this.dispose();
-        
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void CreateANewCharacterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateANewCharacterButtonActionPerformed
@@ -169,9 +164,6 @@ public class SelectACharacterScreen extends javax.swing.JFrame {
             nicknameChoosing.setVisible(true);
             this.dispose();
         }
-        
-        
-        
     }//GEN-LAST:event_CreateANewCharacterButtonActionPerformed
 
     private void GreySquare1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GreySquare1ActionPerformed
@@ -239,9 +231,6 @@ public class SelectACharacterScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_GreySquare5ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

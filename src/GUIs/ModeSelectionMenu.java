@@ -110,7 +110,7 @@ public class ModeSelectionMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
-        
+        GUIs.NormalSettings.Type = "Normal";
         GUIs.NormalSettings normalSettings = new GUIs.NormalSettings();
 
         int WidthSize = (int) tk.getScreenSize().getWidth();

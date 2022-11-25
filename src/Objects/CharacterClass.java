@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class CharacterClass {
     
@@ -19,7 +17,6 @@ public class CharacterClass {
     }
    
    // <editor-fold defaultstate="collapsed" desc="Getters"> 
-
     public int getClassID() {
         return ClassID;
     }
@@ -42,7 +39,6 @@ public class CharacterClass {
     //</editor-fold>
     
    // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setClassID(int ClassID) {
         this.ClassID = ClassID;
     }
@@ -63,6 +59,4 @@ public class CharacterClass {
         this.MinCharacterAttack = MinCharacterAttack;
     }
     //</editor-fold>
-    
-    
 }

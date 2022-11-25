@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class CharacterItem {
     
@@ -15,7 +13,6 @@ public class CharacterItem {
     }
     
     // <editor-fold defaultstate="collapsed" desc="Getters">
-
     public int getCharacterItemID() {
         return CharacterItemID;
     }
@@ -29,7 +26,6 @@ public class CharacterItem {
     }
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setCharacterItemID(int CharacterItemID) {
         this.CharacterItemID = CharacterItemID;
     }

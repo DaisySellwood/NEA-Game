@@ -17,6 +17,8 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
     private static Objects.CharacterClass ClassInformation = Other.SQLStatements.GetCertainClass(PlayerClass);
     private static ArrayList<Objects.Attack> ClassAttacks = Other.SQLStatements.GetClassAttacks(PlayerClass);
     private static Objects.Monster CurrentMonster;
+    private static ArrayList<Objects.CharacterItem> CharacterItems = Other.SQLStatements.GetCharacterItems(Other.NEAGame.CurrentCharacter.get(0).getCharacterID());
+    private static ArrayList<Objects.Item> AllItems = Other.SQLStatements.GettAllItems();
 
     private static double PlayerHealth;
     private static double MonsterHealth;
@@ -26,6 +28,8 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
 
     public StoryModeBattleScreen() {
         initComponents();
+        
+        SetBagInvisible();
 
         BattleQuitConfirmationBox.setVisible(false);
         YesButton.setVisible(false);
@@ -69,13 +73,8 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
         FightThreeName.setVisible(false);
         FightThreeType.setVisible(false);
 
-        PlayerHealth85.setVisible(false);
-        PlayerHealth71.setVisible(false);
-        PlayerHealth57.setVisible(false);
-        PlayerHealth42.setVisible(false);
-        PlayerHealth28.setVisible(false);
-        PlayerHealth14.setVisible(false);
-        PlayerHealth0.setVisible(false);
+        PlayerHealth = GUIs.DifficultySelectScreen.Health;
+        SetPlayerHealthBar();
 
         MonsterHealth85.setVisible(false);
         MonsterHealth71.setVisible(false);
@@ -89,12 +88,42 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
 
         PlayerName.setText(Other.NEAGame.CurrentCharacter.get(0).getNickname());
         MonsterName.setText(Monster);
+        MonsterHealth = CurrentMonster.getMonsterHealth() + GUIs.DifficultySelectScreen.Modifier;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        AmountFive = new javax.swing.JLabel();
+        NameFour = new javax.swing.JLabel();
+        TypeFour = new javax.swing.JLabel();
+        BuffFour = new javax.swing.JLabel();
+        AmountFour = new javax.swing.JLabel();
+        NameThree = new javax.swing.JLabel();
+        TypeThree = new javax.swing.JLabel();
+        BuffThree = new javax.swing.JLabel();
+        TypeFive = new javax.swing.JLabel();
+        AmountThree = new javax.swing.JLabel();
+        NameTwo = new javax.swing.JLabel();
+        TypeTwo = new javax.swing.JLabel();
+        BuffTwo = new javax.swing.JLabel();
+        AmountTwo = new javax.swing.JLabel();
+        AmountOne = new javax.swing.JLabel();
+        BuffOne = new javax.swing.JLabel();
+        TypeOne = new javax.swing.JLabel();
+        BuffFive = new javax.swing.JLabel();
+        NameFive = new javax.swing.JLabel();
+        NameOne = new javax.swing.JLabel();
+        UseFiveButton = new javax.swing.JButton();
+        UseFourButton = new javax.swing.JButton();
+        UseThreeButton = new javax.swing.JButton();
+        UseTwoButton = new javax.swing.JButton();
+        UseOneButton = new javax.swing.JButton();
+        ItemTypeButton = new javax.swing.JButton();
+        AlphabeticalButton = new javax.swing.JButton();
+        BagBackButton = new javax.swing.JButton();
+        BagBackground = new javax.swing.JLabel();
         OpponentTurnBanner = new javax.swing.JLabel();
         PlayerTurnBanner = new javax.swing.JLabel();
         NoButton = new javax.swing.JButton();
@@ -145,6 +174,170 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
+
+        AmountFive.setText("----");
+        getContentPane().add(AmountFive);
+        AmountFive.setBounds(1240, 900, 90, 14);
+
+        NameFour.setText("----");
+        getContentPane().add(NameFour);
+        NameFour.setBounds(380, 770, 140, 14);
+
+        TypeFour.setText("----");
+        getContentPane().add(TypeFour);
+        TypeFour.setBounds(690, 760, 80, 14);
+
+        BuffFour.setText("----");
+        getContentPane().add(BuffFour);
+        BuffFour.setBounds(950, 760, 110, 14);
+
+        AmountFour.setText("----");
+        getContentPane().add(AmountFour);
+        AmountFour.setBounds(1240, 770, 90, 14);
+
+        NameThree.setText("----");
+        getContentPane().add(NameThree);
+        NameThree.setBounds(380, 650, 140, 14);
+
+        TypeThree.setText("----");
+        getContentPane().add(TypeThree);
+        TypeThree.setBounds(690, 640, 90, 14);
+
+        BuffThree.setText("----");
+        getContentPane().add(BuffThree);
+        BuffThree.setBounds(950, 640, 130, 14);
+
+        TypeFive.setText("----");
+        getContentPane().add(TypeFive);
+        TypeFive.setBounds(680, 900, 110, 14);
+
+        AmountThree.setText("----");
+        getContentPane().add(AmountThree);
+        AmountThree.setBounds(1240, 630, 80, 14);
+
+        NameTwo.setText("----");
+        getContentPane().add(NameTwo);
+        NameTwo.setBounds(390, 510, 110, 14);
+
+        TypeTwo.setText("----");
+        getContentPane().add(TypeTwo);
+        TypeTwo.setBounds(690, 510, 110, 14);
+
+        BuffTwo.setText("----");
+        getContentPane().add(BuffTwo);
+        BuffTwo.setBounds(950, 510, 120, 14);
+
+        AmountTwo.setText("----");
+        getContentPane().add(AmountTwo);
+        AmountTwo.setBounds(1240, 500, 80, 14);
+
+        AmountOne.setText("----");
+        getContentPane().add(AmountOne);
+        AmountOne.setBounds(1240, 380, 90, 14);
+
+        BuffOne.setText("----");
+        getContentPane().add(BuffOne);
+        BuffOne.setBounds(950, 380, 100, 14);
+
+        TypeOne.setText("----");
+        getContentPane().add(TypeOne);
+        TypeOne.setBounds(690, 380, 110, 14);
+
+        BuffFive.setText("----");
+        getContentPane().add(BuffFive);
+        BuffFive.setBounds(950, 900, 90, 14);
+
+        NameFive.setText("----");
+        getContentPane().add(NameFive);
+        NameFive.setBounds(380, 910, 150, 14);
+
+        NameOne.setText("----");
+        getContentPane().add(NameOne);
+        NameOne.setBounds(390, 380, 110, 14);
+
+        UseFiveButton.setBorderPainted(false);
+        UseFiveButton.setContentAreaFilled(false);
+        UseFiveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UseFiveButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UseFiveButton);
+        UseFiveButton.setBounds(1413, 853, 200, 100);
+
+        UseFourButton.setBorderPainted(false);
+        UseFourButton.setContentAreaFilled(false);
+        UseFourButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UseFourButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UseFourButton);
+        UseFourButton.setBounds(1413, 723, 200, 110);
+
+        UseThreeButton.setBorderPainted(false);
+        UseThreeButton.setContentAreaFilled(false);
+        UseThreeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UseThreeButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UseThreeButton);
+        UseThreeButton.setBounds(1413, 593, 200, 100);
+
+        UseTwoButton.setBorderPainted(false);
+        UseTwoButton.setContentAreaFilled(false);
+        UseTwoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UseTwoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UseTwoButton);
+        UseTwoButton.setBounds(1413, 463, 200, 90);
+
+        UseOneButton.setBorderPainted(false);
+        UseOneButton.setContentAreaFilled(false);
+        UseOneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UseOneButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UseOneButton);
+        UseOneButton.setBounds(1413, 333, 200, 100);
+
+        ItemTypeButton.setBorderPainted(false);
+        ItemTypeButton.setContentAreaFilled(false);
+        ItemTypeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemTypeButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ItemTypeButton);
+        ItemTypeButton.setBounds(1210, 150, 350, 80);
+
+        AlphabeticalButton.setBorderPainted(false);
+        AlphabeticalButton.setContentAreaFilled(false);
+        AlphabeticalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlphabeticalButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AlphabeticalButton);
+        AlphabeticalButton.setBounds(373, 143, 340, 80);
+
+        BagBackButton.setBorderPainted(false);
+        BagBackButton.setContentAreaFilled(false);
+        BagBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BagBackButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BagBackButton);
+        BagBackButton.setBounds(73, 73, 190, 70);
+
+        BagBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Bag Screen.jpg"))); // NOI18N
+        getContentPane().add(BagBackground);
+        BagBackground.setBounds(0, 10, 1930, 1090);
 
         OpponentTurnBanner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Opponent Turn Banner.png"))); // NOI18N
         getContentPane().add(OpponentTurnBanner);
@@ -426,11 +619,16 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_FightButtonActionPerformed
 
     private void BagButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagButtonActionPerformed
-        // GOD HELP THIS BUTTON
-        // BRING UP ANOTHER SCREEN ON TOP OF THIS SCREEN WITH THE BAG.
-        // FIND A WAY TO BRING UP ITEMS (LIKE I DID WITH SAC SCREEN?)
-        // HAVE SORT BUTTONS FOR ALPHABETICAL ORDER AND ITEM TYPE THEN USE RECURSIVE MERGE SORT TO SORT THEM
-        // USER WILL ONLY BE ABLE TO USE HEALTH POTIONS.
+        BagBackground.setVisible(true);
+        BagBackButton.setVisible(true);
+        AlphabeticalButton.setVisible(true);
+        ItemTypeButton.setVisible(true);
+
+        FightButton.setVisible(false);
+        BagButton.setVisible(false);
+        ExitButton.setVisible(false);
+
+        BagSetUp();
     }//GEN-LAST:event_BagButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -476,6 +674,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             }
             MonsterHealth = MonsterHealth - TotalAttack;
             SetMonsterHealthBar();
+            CheckMonsterHealth();
             PlayerTurn = false;
         } else if (CurrentAttack.getAttackType().equals("Heal")) {
             int CharacterHeal = rand.nextInt((ClassInformation.getMaxCharacterAttack() - ClassInformation.getMinCharacterAttack()) + 1) + ClassInformation.getMinCharacterAttack();
@@ -488,6 +687,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             Buff = CurrentAttack.getDamageMultiplier();
             PlayerTurn = false;
         }
+        Main();
     }//GEN-LAST:event_FightOneButtonActionPerformed
 
     private void FightTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FightTwoButtonActionPerformed
@@ -503,6 +703,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             }
             MonsterHealth = MonsterHealth - TotalAttack;
             SetMonsterHealthBar();
+            CheckMonsterHealth();
             PlayerTurn = false;
         } else if (CurrentAttack.getAttackType().equals("Heal")) {
             int CharacterHeal = rand.nextInt((ClassInformation.getMaxCharacterAttack() - ClassInformation.getMinCharacterAttack()) + 1) + ClassInformation.getMinCharacterAttack();
@@ -515,6 +716,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             Buff = Buff + CurrentAttack.getDamageMultiplier();
             PlayerTurn = false;
         }
+        Main();
     }//GEN-LAST:event_FightTwoButtonActionPerformed
 
     private void FightThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FightThreeButtonActionPerformed
@@ -530,6 +732,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             }
             MonsterHealth = MonsterHealth - TotalAttack;
             SetMonsterHealthBar();
+            CheckMonsterHealth();
             PlayerTurn = false;
         } else if (CurrentAttack.getAttackType().equals("Heal")) {
             int CharacterHeal = rand.nextInt((ClassInformation.getMaxCharacterAttack() - ClassInformation.getMinCharacterAttack()) + 1) + ClassInformation.getMinCharacterAttack();
@@ -542,6 +745,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
             Buff = CurrentAttack.getDamageMultiplier();
             PlayerTurn = false;
         }
+        Main();
     }//GEN-LAST:event_FightThreeButtonActionPerformed
 
     private void FightBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FightBackButtonActionPerformed
@@ -561,6 +765,89 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
         BagButton.setVisible(true);
         ExitButton.setVisible(true);
     }//GEN-LAST:event_FightBackButtonActionPerformed
+
+    private void BagBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagBackButtonActionPerformed
+        SetBagInvisible();
+    }//GEN-LAST:event_BagBackButtonActionPerformed
+
+    private void AlphabeticalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlphabeticalButtonActionPerformed
+        String[] Items = Other.Utilities.GetItemsToSort(AllItems, CharacterItems);
+        Other.Utilities.SortItems(Items);
+        ArrayList<Objects.Item> SortedItems = Other.Utilities.ReturnSortedItems(AllItems);
+        DisplaySortedItems(SortedItems);
+    }//GEN-LAST:event_AlphabeticalButtonActionPerformed
+
+    private void ItemTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTypeButtonActionPerformed
+        String[] Items = Other.Utilities.GetItemTypeToSort(AllItems, CharacterItems);
+        Other.Utilities.SortItems(Items);
+        ArrayList<Objects.Item>SortedItems = Other.Utilities.ReturnSortedItemTypes(AllItems, CharacterItems);
+        DisplaySortedItems(SortedItems);
+    }//GEN-LAST:event_ItemTypeButtonActionPerformed
+
+    private void UseOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseOneButtonActionPerformed
+        Objects.Item CurrentItem = AllItems.get(CharacterItems.get(0).getItemID()-1);
+        
+        if (CurrentItem.getBuff().equals("Attack")) {
+            Buff = Buff + CurrentItem.getBuffAmount();
+        }else if(CurrentItem.getBuff().equals("Health")){
+            PlayerHealth = PlayerHealth + CurrentItem.getBuffAmount();
+        }
+        PlayerTurn = false;
+        SetBagInvisible();
+        Main();
+    }//GEN-LAST:event_UseOneButtonActionPerformed
+
+    private void UseTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseTwoButtonActionPerformed
+        Objects.Item CurrentItem = AllItems.get(CharacterItems.get(1).getItemID()-1);
+        
+        if (CurrentItem.getBuff().equals("Attack")) {
+            Buff = Buff + CurrentItem.getBuffAmount();
+        }else if(CurrentItem.getBuff().equals("Health")){
+            PlayerHealth = PlayerHealth + CurrentItem.getBuffAmount();
+        }
+        PlayerTurn = false;
+        SetBagInvisible();
+        Main();
+    }//GEN-LAST:event_UseTwoButtonActionPerformed
+
+    private void UseThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseThreeButtonActionPerformed
+        Objects.Item CurrentItem = AllItems.get(CharacterItems.get(2).getItemID()-1);
+        
+        if (CurrentItem.getBuff().equals("Attack")) {
+            Buff = Buff + CurrentItem.getBuffAmount();
+        }else if(CurrentItem.getBuff().equals("Health")){
+            PlayerHealth = PlayerHealth + CurrentItem.getBuffAmount();
+        }
+        PlayerTurn = false;
+        SetBagInvisible();
+        Main();
+    }//GEN-LAST:event_UseThreeButtonActionPerformed
+
+    private void UseFourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseFourButtonActionPerformed
+        Objects.Item CurrentItem = AllItems.get(CharacterItems.get(3).getItemID()-1);
+        
+        if (CurrentItem.getBuff().equals("Attack")) {
+            Buff = Buff + CurrentItem.getBuffAmount();
+        }else if(CurrentItem.getBuff().equals("Health")){
+            PlayerHealth = PlayerHealth + CurrentItem.getBuffAmount();
+        }
+        PlayerTurn = false;
+        SetBagInvisible();
+        Main();
+    }//GEN-LAST:event_UseFourButtonActionPerformed
+
+    private void UseFiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseFiveButtonActionPerformed
+        Objects.Item CurrentItem = AllItems.get(CharacterItems.get(4).getItemID()-1);
+        
+        if (CurrentItem.getBuff().equals("Attack")) {
+            Buff = Buff + CurrentItem.getBuffAmount();
+        }else if(CurrentItem.getBuff().equals("Health")){
+            PlayerHealth = PlayerHealth + CurrentItem.getBuffAmount();
+        }
+        PlayerTurn = false;
+        SetBagInvisible();
+        Main();
+    }//GEN-LAST:event_UseFiveButtonActionPerformed
 
     public void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -592,79 +879,6 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
                 new StoryModeBattleScreen().setVisible(true);
             }
         });
-
-        PlayerHealth = ClassInformation.getCharacterHealth();
-        MonsterHealth = CurrentMonster.getMonsterHealth();
-
-        while (PlayerHealth > 0 && MonsterHealth > 0) {
-
-            while (PlayerTurn == true) {
-                PlayerTurnBanner.setVisible(true);
-                OpponentTurnBanner.setVisible(false);
-            }
-
-            while (PlayerTurn == false) {
-                System.out.println("Monster Turn"); //for testing 
-                PlayerTurnBanner.setVisible(false);
-                OpponentTurnBanner.setVisible(true);
-
-                FightBox.setVisible(false);
-                FightBackButton.setVisible(false);
-                FightOneButton.setVisible(false);
-                FightOneName.setVisible(false);
-                FightOneType.setVisible(false);
-                FightTwoButton.setVisible(false);
-                FightTwoName.setVisible(false);
-                FightTwoType.setVisible(false);
-                FightThreeButton.setVisible(false);
-                FightThreeName.setVisible(false);
-                FightThreeType.setVisible(false);
-
-                FightButton.setVisible(false);
-                BagButton.setVisible(false);
-                ExitButton.setVisible(false);
-
-                int MonsterAttack = rand.nextInt((CurrentMonster.getMaxMonsterAttack() - CurrentMonster.getMinMonsterAttack()) + 1) + CurrentMonster.getMinMonsterAttack();
-                PlayerHealth = PlayerHealth - MonsterAttack;
-                SetPlayerHealthBar();
-                PlayerTurn = true;
-            }
-
-        }
-
-        //LOSE
-        if (PlayerHealth == 0 || PlayerHealth < 0) {
-            SetPlayerImageInvisible();
-
-            GUIs.FightFailedScreen fightFailed = new GUIs.FightFailedScreen();
-
-            int WidthSize = (int) tk.getScreenSize().getWidth();
-            int HeightSize = (int) tk.getScreenSize().getHeight();
-
-            fightFailed.setSize(WidthSize, HeightSize);
-            fightFailed.setVisible(true);
-            this.dispose();
-
-        }
-
-        //WIN
-        if (MonsterHealth == 0 || MonsterHealth < 0) {
-            SetMonsterImageInvisible();
-            
-            if (FightType.equals("Normal")){
-              //GO BACK TO CURRENT ROOM IF NORMAL  
-            }else if (FightType.equals("Boss")){
-            GUIs.StoryModeWinScreen StoryWin = new GUIs.StoryModeWinScreen();
-
-            int WidthSize = (int) tk.getScreenSize().getWidth();
-            int HeightSize = (int) tk.getScreenSize().getHeight();
-
-            StoryWin.setSize(WidthSize, HeightSize);
-            StoryWin.setVisible(true);
-            this.dispose();
-            }
-        }
-
     }
 
     private void SetMonsterImageVisible() {
@@ -935,11 +1149,417 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
         }
     }
 
+    private void CheckPlayerHealth() {
+        if (PlayerHealth == 0 || PlayerHealth < 0) {
+            SetPlayerImageInvisible();
+            GUIs.ForestBattleScreen.GameType = "Story";
+
+            GUIs.FightFailedScreen fightFailed = new GUIs.FightFailedScreen();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            fightFailed.setSize(WidthSize, HeightSize);
+            fightFailed.setVisible(true);
+            this.dispose();
+        }
+    }
+
+    private void CheckMonsterHealth() {
+        if (MonsterHealth == 0 || MonsterHealth < 0) {
+            SetMonsterImageInvisible();
+
+            if (FightType.equals("Boss")) {
+                GUIs.StoryModeWinScreen StoryWin = new GUIs.StoryModeWinScreen();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryWin.setSize(WidthSize, HeightSize);
+                StoryWin.setVisible(true);
+                this.dispose();
+            } else if (FightType.equals("Normal")) {
+                GUIs.DifficultySelectScreen.Health = PlayerHealth;
+                GUIs.DifficultySelectScreen.Modifier = GUIs.DifficultySelectScreen.Modifier + 1;
+                GUIs.DifficultySelectScreen.BattleCheck = true;
+                String Room = GUIs.DifficultySelectScreen.LastMovesStack.get(GUIs.DifficultySelectScreen.LastMovesStack.size() - 1);
+                GUIs.DifficultySelectScreen.LastMovesStack.remove(GUIs.DifficultySelectScreen.LastMovesStack.size() - 1);
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                switch (Room) {
+                    case "Entrance Room":
+                        GUIs.EntranceRoom entrance = new GUIs.EntranceRoom();
+                        entrance.setSize(WidthSize, HeightSize);
+                        entrance.setVisible(true);
+                        this.dispose();
+                        break;
+                    case "Main Hall":
+                        GUIs.MainHall mainHall = new GUIs.MainHall();
+                        mainHall.setSize(WidthSize, HeightSize);
+                        mainHall.setVisible(true);
+                        this.dispose();
+                        break;
+                    case "Staircase":
+                        GUIs.Staircase stairs = new GUIs.Staircase();
+                        stairs.setSize(WidthSize, HeightSize);
+                        stairs.setVisible(true);
+                        this.dispose();
+                        break;
+                    case "Laundry Room":
+                        GUIs.LaundryRoom laundry = new GUIs.LaundryRoom();
+                        laundry.setSize(WidthSize, HeightSize);
+                        laundry.setVisible(true);
+                        this.dispose();
+                        break;
+                    case "Library Room":
+                        GUIs.LibraryRoom library = new GUIs.LibraryRoom();
+                        library.setSize(WidthSize, HeightSize);
+                        library.setVisible(true);
+                        this.dispose();
+                        break;
+                    case "Back Room":
+                        GUIs.BackRoom backRoom = new GUIs.BackRoom();
+                        backRoom.setSize(WidthSize, HeightSize);
+                        backRoom.setVisible(true);
+                        this.dispose();
+                        break;
+                }
+            }
+        }
+    }
+
+    private void Main() {
+
+        if (PlayerHealth > 0 && MonsterHealth > 0) {
+
+            if (PlayerTurn == true) {
+                PlayerTurnBanner.setVisible(true);
+                OpponentTurnBanner.setVisible(false);
+                FightButton.setVisible(true);
+                BagButton.setVisible(true);
+                ExitButton.setVisible(true);
+            } else if (PlayerTurn == false) {
+                PlayerTurnBanner.setVisible(false);
+                OpponentTurnBanner.setVisible(true);
+
+                FightBox.setVisible(false);
+                FightBackButton.setVisible(false);
+                FightOneButton.setVisible(false);
+                FightOneName.setVisible(false);
+                FightOneType.setVisible(false);
+                FightTwoButton.setVisible(false);
+                FightTwoName.setVisible(false);
+                FightTwoType.setVisible(false);
+                FightThreeButton.setVisible(false);
+                FightThreeName.setVisible(false);
+                FightThreeType.setVisible(false);
+
+                FightButton.setVisible(false);
+                BagButton.setVisible(false);
+                ExitButton.setVisible(false);
+
+                int MonsterAttack = rand.nextInt(((CurrentMonster.getMaxMonsterAttack()+GUIs.DifficultySelectScreen.Modifier) - (CurrentMonster.getMinMonsterAttack()+GUIs.DifficultySelectScreen.Modifier)) + 1) + (CurrentMonster.getMinMonsterAttack()+GUIs.DifficultySelectScreen.Modifier);
+                PlayerHealth = PlayerHealth - MonsterAttack;
+                SetPlayerHealthBar();
+                CheckPlayerHealth();
+                PlayerTurn = true;
+                Main();
+            }
+        }
+    }
+    
+    private void DisplaySortedItems(ArrayList<Objects.Item> SortedItems){
+        int ItemNumber = SortedItems.size();
+        
+        if (ItemNumber > 5) {
+            ItemNumber = 5;
+        }
+        
+        switch (ItemNumber){
+            case 1:
+                NameOne.setText(SortedItems.get(0).getItemName());
+                TypeOne.setText(SortedItems.get(0).getItemType());
+                BuffOne.setText(SortedItems.get(0).getBuff());
+                AmountOne.setText(Integer.toString(SortedItems.get(0).getBuffAmount()));
+                break;
+            case 2:
+                NameOne.setText(SortedItems.get(0).getItemName());
+                TypeOne.setText(SortedItems.get(0).getItemType());
+                BuffOne.setText(SortedItems.get(0).getBuff());
+                AmountOne.setText(Integer.toString(SortedItems.get(0).getBuffAmount()));
+                NameTwo.setText(SortedItems.get(1).getItemName());
+                TypeTwo.setText(SortedItems.get(1).getItemType());
+                BuffTwo.setText(SortedItems.get(1).getBuff());
+                AmountTwo.setText(Integer.toString(SortedItems.get(1).getBuffAmount()));
+                break;
+            case 3:
+                NameOne.setText(SortedItems.get(0).getItemName());
+                TypeOne.setText(SortedItems.get(0).getItemType());
+                BuffOne.setText(SortedItems.get(0).getBuff());
+                AmountOne.setText(Integer.toString(SortedItems.get(0).getBuffAmount()));
+                NameTwo.setText(SortedItems.get(1).getItemName());
+                TypeTwo.setText(SortedItems.get(1).getItemType());
+                BuffTwo.setText(SortedItems.get(1).getBuff());
+                AmountTwo.setText(Integer.toString(SortedItems.get(1).getBuffAmount()));
+                NameThree.setText(SortedItems.get(2).getItemName());
+                TypeThree.setText(SortedItems.get(2).getItemType());
+                BuffThree.setText(SortedItems.get(2).getBuff());
+                AmountThree.setText(Integer.toString(SortedItems.get(2).getBuffAmount()));
+                break;
+            case 4:
+                NameOne.setText(SortedItems.get(0).getItemName());
+                TypeOne.setText(SortedItems.get(0).getItemType());
+                BuffOne.setText(SortedItems.get(0).getBuff());
+                AmountOne.setText(Integer.toString(SortedItems.get(0).getBuffAmount()));
+                NameTwo.setText(SortedItems.get(1).getItemName());
+                TypeTwo.setText(SortedItems.get(1).getItemType());
+                BuffTwo.setText(SortedItems.get(1).getBuff());
+                AmountTwo.setText(Integer.toString(SortedItems.get(1).getBuffAmount()));
+                NameThree.setText(SortedItems.get(2).getItemName());
+                TypeThree.setText(SortedItems.get(2).getItemType());
+                BuffThree.setText(SortedItems.get(2).getBuff());
+                AmountThree.setText(Integer.toString(SortedItems.get(2).getBuffAmount()));
+                NameFour.setText(SortedItems.get(3).getItemName());
+                TypeFour.setText(SortedItems.get(3).getItemType());
+                BuffFour.setText(SortedItems.get(3).getBuff());
+                AmountFour.setText(Integer.toString(SortedItems.get(3).getBuffAmount()));
+                break;
+            case 5:
+                NameOne.setText(SortedItems.get(0).getItemName());
+                TypeOne.setText(SortedItems.get(0).getItemType());
+                BuffOne.setText(SortedItems.get(0).getBuff());
+                AmountOne.setText(Integer.toString(SortedItems.get(0).getBuffAmount()));
+                NameTwo.setText(SortedItems.get(1).getItemName());
+                TypeTwo.setText(SortedItems.get(1).getItemType());
+                BuffTwo.setText(SortedItems.get(1).getBuff());
+                AmountTwo.setText(Integer.toString(SortedItems.get(1).getBuffAmount()));
+                NameThree.setText(SortedItems.get(2).getItemName());
+                TypeThree.setText(SortedItems.get(2).getItemType());
+                BuffThree.setText(SortedItems.get(2).getBuff());
+                AmountThree.setText(Integer.toString(SortedItems.get(2).getBuffAmount()));
+                NameFour.setText(SortedItems.get(3).getItemName());
+                TypeFour.setText(SortedItems.get(3).getItemType());
+                BuffFour.setText(SortedItems.get(3).getBuff());
+                AmountFour.setText(Integer.toString(SortedItems.get(3).getBuffAmount()));
+                NameFive.setText(SortedItems.get(4).getItemName());
+                TypeFive.setText(SortedItems.get(4).getItemType());
+                BuffFive.setText(SortedItems.get(4).getBuff());
+                AmountFive.setText(Integer.toString(SortedItems.get(4).getBuffAmount()));
+                break;
+        }
+    }
+    
+    private void SetBagInvisible(){
+        BagBackground.setVisible(false);
+        BagBackButton.setVisible(false);
+        AlphabeticalButton.setVisible(false);
+        ItemTypeButton.setVisible(false);
+        NameOne.setVisible(false);
+        TypeOne.setVisible(false);
+        BuffOne.setVisible(false);
+        AmountOne.setVisible(false);
+        UseOneButton.setVisible(false);
+        NameTwo.setVisible(false);
+        TypeTwo.setVisible(false);
+        BuffTwo.setVisible(false);
+        AmountTwo.setVisible(false);
+        UseTwoButton.setVisible(false);
+        NameThree.setVisible(false);
+        TypeThree.setVisible(false);
+        BuffThree.setVisible(false);
+        AmountThree.setVisible(false);
+        UseThreeButton.setVisible(false);
+        NameFour.setVisible(false);
+        TypeFour.setVisible(false);
+        BuffFour.setVisible(false);
+        AmountFour.setVisible(false);
+        UseFourButton.setVisible(false);
+        NameFive.setVisible(false);
+        TypeFive.setVisible(false);
+        BuffFive.setVisible(false);
+        AmountFive.setVisible(false);
+        UseFiveButton.setVisible(false);
+        
+        FightButton.setVisible(true);
+        BagButton.setVisible(true);
+        ExitButton.setVisible(true);
+    }
+    
+    private void BagSetUp() {
+        int ItemNumber = CharacterItems.size();
+
+        if (ItemNumber > 5) {
+            ItemNumber = 5;
+        }
+
+        switch (ItemNumber) {
+            case 1:
+                NameOne.setVisible(true);
+                NameOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemName());
+                TypeOne.setVisible(true);
+                TypeOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemType());
+                BuffOne.setVisible(true);
+                BuffOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuff());
+                AmountOne.setVisible(true);
+                AmountOne.setText(Integer.toString(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuffAmount()));
+                UseOneButton.setVisible(true);
+                break;
+            case 2:
+                NameOne.setVisible(true);
+                NameOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemName());
+                TypeOne.setVisible(true);
+                TypeOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemType());
+                BuffOne.setVisible(true);
+                BuffOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuff());
+                AmountOne.setVisible(true);
+                AmountOne.setText(Integer.toString(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuffAmount()));
+                UseOneButton.setVisible(true);
+                NameTwo.setVisible(true);
+                NameTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemName());
+                TypeTwo.setVisible(true);
+                TypeTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemType());
+                BuffTwo.setVisible(true);
+                BuffTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuff());
+                AmountTwo.setVisible(true);
+                AmountTwo.setText(Integer.toString(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuffAmount()));
+                UseTwoButton.setVisible(true);
+                break;
+            case 3:
+                NameOne.setVisible(true);
+                NameOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemName());
+                TypeOne.setVisible(true);
+                TypeOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemType());
+                BuffOne.setVisible(true);
+                BuffOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuff());
+                AmountOne.setVisible(true);
+                AmountOne.setText(Integer.toString(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuffAmount()));
+                UseOneButton.setVisible(true);
+                NameTwo.setVisible(true);
+                NameTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemName());
+                TypeTwo.setVisible(true);
+                TypeTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemType());
+                BuffTwo.setVisible(true);
+                BuffTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuff());
+                AmountTwo.setVisible(true);
+                AmountTwo.setText(Integer.toString(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuffAmount()));
+                UseTwoButton.setVisible(true);
+                NameThree.setVisible(true);
+                NameThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemName());
+                TypeThree.setVisible(true);
+                TypeThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemType());
+                BuffThree.setVisible(true);
+                BuffThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuff());
+                AmountThree.setVisible(true);
+                AmountThree.setText(Integer.toString(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuffAmount()));
+                UseThreeButton.setVisible(true);
+                break;
+            case 4:
+                NameOne.setVisible(true);
+                NameOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemName());
+                TypeOne.setVisible(true);
+                TypeOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemType());
+                BuffOne.setVisible(true);
+                BuffOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuff());
+                AmountOne.setVisible(true);
+                AmountOne.setText(Integer.toString(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuffAmount()));
+                UseOneButton.setVisible(true);
+                NameTwo.setVisible(true);
+                NameTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemName());
+                TypeTwo.setVisible(true);
+                TypeTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemType());
+                BuffTwo.setVisible(true);
+                BuffTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuff());
+                AmountTwo.setVisible(true);
+                AmountTwo.setText(Integer.toString(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuffAmount()));
+                UseTwoButton.setVisible(true);
+                NameThree.setVisible(true);
+                NameThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemName());
+                TypeThree.setVisible(true);
+                TypeThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemType());
+                BuffThree.setVisible(true);
+                BuffThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuff());
+                AmountThree.setVisible(true);
+                AmountThree.setText(Integer.toString(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuffAmount()));
+                UseThreeButton.setVisible(true);
+                NameFour.setVisible(true);
+                NameFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getItemName());
+                TypeFour.setVisible(true);
+                TypeFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getItemType());
+                BuffFour.setVisible(true);
+                BuffFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getBuff());
+                AmountFour.setVisible(true);
+                AmountFour.setText(Integer.toString(AllItems.get(CharacterItems.get(3).getItemID()-1).getBuffAmount()));
+                UseFourButton.setVisible(true);
+                break;
+            case 5:
+                NameOne.setVisible(true);
+                NameOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemName());
+                TypeOne.setVisible(true);
+                TypeOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getItemType());
+                BuffOne.setVisible(true);
+                BuffOne.setText(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuff());
+                AmountOne.setVisible(true);
+                AmountOne.setText(Integer.toString(AllItems.get(CharacterItems.get(0).getItemID()-1).getBuffAmount()));
+                UseOneButton.setVisible(true);
+                NameTwo.setVisible(true);
+                NameTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemName());
+                TypeTwo.setVisible(true);
+                TypeTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getItemType());
+                BuffTwo.setVisible(true);
+                BuffTwo.setText(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuff());
+                AmountTwo.setVisible(true);
+                AmountTwo.setText(Integer.toString(AllItems.get(CharacterItems.get(1).getItemID()-1).getBuffAmount()));
+                UseTwoButton.setVisible(true);
+                NameThree.setVisible(true);
+                NameThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemName());
+                TypeThree.setVisible(true);
+                TypeThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getItemType());
+                BuffThree.setVisible(true);
+                BuffThree.setText(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuff());
+                AmountThree.setVisible(true);
+                AmountThree.setText(Integer.toString(AllItems.get(CharacterItems.get(2).getItemID()-1).getBuffAmount()));
+                UseThreeButton.setVisible(true);
+                NameFour.setVisible(true);
+                NameFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getItemName());
+                TypeFour.setVisible(true);
+                TypeFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getItemType());
+                BuffFour.setVisible(true);
+                BuffFour.setText(AllItems.get(CharacterItems.get(3).getItemID()-1).getBuff());
+                AmountFour.setVisible(true);
+                AmountFour.setText(Integer.toString(AllItems.get(CharacterItems.get(3).getItemID()-1).getBuffAmount()));
+                UseFourButton.setVisible(true);
+                NameFive.setVisible(true);
+                NameFive.setText(AllItems.get(CharacterItems.get(4).getItemID()-1).getItemName());
+                TypeFive.setVisible(true);
+                TypeFive.setText(AllItems.get(CharacterItems.get(4).getItemID()-1).getItemType());
+                BuffFive.setVisible(true);
+                BuffFive.setText(AllItems.get(CharacterItems.get(4).getItemID()-1).getBuff());
+                AmountFive.setVisible(true);
+                AmountFive.setText(Integer.toString(AllItems.get(CharacterItems.get(4).getItemID()-1).getBuffAmount()));
+                UseFiveButton.setVisible(true);
+                break;
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AlphabeticalButton;
+    private javax.swing.JLabel AmountFive;
+    private javax.swing.JLabel AmountFour;
+    private javax.swing.JLabel AmountOne;
+    private javax.swing.JLabel AmountThree;
+    private javax.swing.JLabel AmountTwo;
     private javax.swing.JLabel Background;
+    private javax.swing.JButton BagBackButton;
+    private javax.swing.JLabel BagBackground;
     private javax.swing.JButton BagButton;
     private javax.swing.JLabel Bat;
     private javax.swing.JLabel BattleQuitConfirmationBox;
+    private javax.swing.JLabel BuffFive;
+    private javax.swing.JLabel BuffFour;
+    private javax.swing.JLabel BuffOne;
+    private javax.swing.JLabel BuffThree;
+    private javax.swing.JLabel BuffTwo;
     private javax.swing.JButton ExitButton;
     private javax.swing.JButton FightBackButton;
     private javax.swing.JLabel FightBox;
@@ -954,6 +1574,7 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
     private javax.swing.JLabel FightTwoName;
     private javax.swing.JLabel FightTwoType;
     private javax.swing.JLabel Ghost;
+    private javax.swing.JButton ItemTypeButton;
     private javax.swing.JLabel MonsterHealth0;
     private javax.swing.JLabel MonsterHealth100;
     private javax.swing.JLabel MonsterHealth14;
@@ -963,6 +1584,11 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
     private javax.swing.JLabel MonsterHealth71;
     private javax.swing.JLabel MonsterHealth85;
     private javax.swing.JLabel MonsterName;
+    private javax.swing.JLabel NameFive;
+    private javax.swing.JLabel NameFour;
+    private javax.swing.JLabel NameOne;
+    private javax.swing.JLabel NameThree;
+    private javax.swing.JLabel NameTwo;
     private javax.swing.JButton NoButton;
     private javax.swing.JLabel OpponentTurnBanner;
     private javax.swing.JLabel PlayerHealth0;
@@ -980,6 +1606,16 @@ public class StoryModeBattleScreen extends javax.swing.JFrame {
     private javax.swing.JLabel StickF;
     private javax.swing.JLabel StickM;
     private javax.swing.JLabel StickNB;
+    private javax.swing.JLabel TypeFive;
+    private javax.swing.JLabel TypeFour;
+    private javax.swing.JLabel TypeOne;
+    private javax.swing.JLabel TypeThree;
+    private javax.swing.JLabel TypeTwo;
+    private javax.swing.JButton UseFiveButton;
+    private javax.swing.JButton UseFourButton;
+    private javax.swing.JButton UseOneButton;
+    private javax.swing.JButton UseThreeButton;
+    private javax.swing.JButton UseTwoButton;
     private javax.swing.JLabel Vampire;
     private javax.swing.JButton YesButton;
     private javax.swing.JLabel Zombie;

@@ -1,4 +1,3 @@
-
 package GUIs;
 
 import java.awt.Toolkit;
@@ -8,28 +7,13 @@ public class Staircase extends javax.swing.JFrame {
 
     Toolkit tk = Toolkit.getDefaultToolkit();
     private static Random rand = new Random();
-    
+
     public Staircase() {
         initComponents();
-        
+
         BlockedStairsMessage.setVisible(false);
         OkButton.setVisible(false);
-        
-        int Decider = rand.nextInt(1);
-        if (Decider == 1){
-        GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
-            
-        GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
-
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
-
-        StoryBattle.setSize(WidthSize, HeightSize);
-        StoryBattle.setVisible(true);
-        this.dispose();
-        }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,6 +23,7 @@ public class Staircase extends javax.swing.JFrame {
         DownwardsButton = new javax.swing.JButton();
         OkButton = new javax.swing.JButton();
         BlockedStairsMessage = new javax.swing.JLabel();
+        SettingsButton = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,6 +63,17 @@ public class Staircase extends javax.swing.JFrame {
         getContentPane().add(BlockedStairsMessage);
         BlockedStairsMessage.setBounds(720, 300, 510, 310);
 
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Settings Icon.png"))); // NOI18N
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setContentAreaFilled(false);
+        SettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SettingsButton);
+        SettingsButton.setBounds(10, 20, 210, 210);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Blocked Stairs.jpg"))); // NOI18N
         getContentPane().add(Background);
         Background.setBounds(1, 6, 1930, 1090);
@@ -93,14 +89,41 @@ public class Staircase extends javax.swing.JFrame {
     }//GEN-LAST:event_UpwardsButtonActionPerformed
 
     private void DownwardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DownwardsButtonActionPerformed
-        GUIs.MainHall mainHall = new GUIs.MainHall();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        mainHall.setSize(WidthSize, HeightSize);
-        mainHall.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            } else {
+                GUIs.MainHall mainHall = new GUIs.MainHall();
+
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                mainHall.setSize(WidthSize, HeightSize);
+                mainHall.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.MainHall mainHall = new GUIs.MainHall();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            mainHall.setSize(WidthSize, HeightSize);
+            mainHall.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_DownwardsButtonActionPerformed
 
     private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
@@ -109,6 +132,20 @@ public class Staircase extends javax.swing.JFrame {
         UpwardsButton.setVisible(true);
         DownwardsButton.setVisible(true);
     }//GEN-LAST:event_OkButtonActionPerformed
+
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        GUIs.DifficultySelectScreen.LastMovesStack.add("Staircase");
+
+        GUIs.NormalSettings.Type = "Story";
+        GUIs.NormalSettings normSets = new GUIs.NormalSettings();
+
+        int WidthSize = (int) tk.getScreenSize().getWidth();
+        int HeightSize = (int) tk.getScreenSize().getHeight();
+
+        normSets.setSize(WidthSize, HeightSize);
+        normSets.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_SettingsButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -147,6 +184,7 @@ public class Staircase extends javax.swing.JFrame {
     private javax.swing.JLabel BlockedStairsMessage;
     private javax.swing.JButton DownwardsButton;
     private javax.swing.JButton OkButton;
+    private javax.swing.JButton SettingsButton;
     private javax.swing.JButton UpwardsButton;
     // End of variables declaration//GEN-END:variables
 }

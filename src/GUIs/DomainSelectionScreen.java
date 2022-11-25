@@ -129,8 +129,6 @@ public class DomainSelectionScreen extends javax.swing.JFrame {
         } else {
             ThreeDomainsErrorMessage.setVisible(true);
         }
-
-
     }//GEN-LAST:event_FearStartActionPerformed
 
     private void NightStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NightStartActionPerformed
@@ -154,8 +152,6 @@ public class DomainSelectionScreen extends javax.swing.JFrame {
         } else {
             ThreeDomainsErrorMessage.setVisible(true);
         }
-
-
     }//GEN-LAST:event_NightStartActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
@@ -169,9 +165,6 @@ public class DomainSelectionScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

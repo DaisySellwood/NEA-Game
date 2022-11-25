@@ -14,20 +14,6 @@ public class BackRoom extends javax.swing.JFrame {
         
         WrongDoorCodeMessage.setVisible(false);
         OkButton.setVisible(false);
-        
-        int Decider = rand.nextInt(1);
-        if (Decider == 1){
-        GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
-            
-        GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
-
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
-
-        StoryBattle.setSize(WidthSize, HeightSize);
-        StoryBattle.setVisible(true);
-        this.dispose();
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +25,7 @@ public class BackRoom extends javax.swing.JFrame {
         DoorCodeField = new javax.swing.JTextField();
         DownwardsButton = new javax.swing.JButton();
         UpwardsButton = new javax.swing.JButton();
+        SettingsButton = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,6 +69,17 @@ public class BackRoom extends javax.swing.JFrame {
         getContentPane().add(UpwardsButton);
         UpwardsButton.setBounds(889, 855, 150, 220);
 
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Settings Icon.png"))); // NOI18N
+        SettingsButton.setBorderPainted(false);
+        SettingsButton.setContentAreaFilled(false);
+        SettingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SettingsButton);
+        SettingsButton.setBounds(10, 20, 220, 210);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Back Room.jpg"))); // NOI18N
         getContentPane().add(Background);
         Background.setBounds(1, 6, 1930, 1090);
@@ -90,21 +88,48 @@ public class BackRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DownwardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DownwardsButtonActionPerformed
-        GUIs.MainHall mainHall = new GUIs.MainHall();
+        if (GUIs.DifficultySelectScreen.BattleCheck == false) {
+            int Decider = rand.nextInt(2);
+            if (Decider == 1) {
+                GUIs.DifficultySelectScreen.LastMovesStack.add("Main Hall");
 
-        int WidthSize = (int) tk.getScreenSize().getWidth();
-        int HeightSize = (int) tk.getScreenSize().getHeight();
+                GUIs.StoryModeBattleScreen.FightType = "Normal";
+                GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
-        mainHall.setSize(WidthSize, HeightSize);
-        mainHall.setVisible(true);
-        this.dispose();
+                int WidthSize = (int) tk.getScreenSize().getWidth();
+                int HeightSize = (int) tk.getScreenSize().getHeight();
+
+                StoryBattle.setSize(WidthSize, HeightSize);
+                StoryBattle.setVisible(true);
+                this.dispose();
+            }else{
+            GUIs.MainHall mainHall = new GUIs.MainHall();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            mainHall.setSize(WidthSize, HeightSize);
+            mainHall.setVisible(true);
+            this.dispose();
+            }
+        }else{
+            GUIs.DifficultySelectScreen.BattleCheck = false;
+            GUIs.MainHall mainHall = new GUIs.MainHall();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            mainHall.setSize(WidthSize, HeightSize);
+            mainHall.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_DownwardsButtonActionPerformed
 
     private void UpwardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpwardsButtonActionPerformed
         String EnteredCode = DoorCodeField.getText();
         
         if (EnteredCode.equals(Integer.toString(GUIs.DifficultySelectScreen.DoorCode))){
-            //Set a variable to be a boss variable
+            GUIs.StoryModeBattleScreen.FightType = "Boss";
             GUIs.StoryModeBattleScreen StoryBattle = new GUIs.StoryModeBattleScreen();
 
             int WidthSize = (int) tk.getScreenSize().getWidth();
@@ -127,6 +152,20 @@ public class BackRoom extends javax.swing.JFrame {
         DownwardsButton.setVisible(true);
         UpwardsButton.setVisible(true);
     }//GEN-LAST:event_OkButtonActionPerformed
+
+    private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
+        GUIs.DifficultySelectScreen.LastMovesStack.add("Back Room");
+        
+        GUIs.NormalSettings.Type = "Story";
+        GUIs.NormalSettings normSets = new GUIs.NormalSettings();
+
+        int WidthSize = (int) tk.getScreenSize().getWidth();
+        int HeightSize = (int) tk.getScreenSize().getHeight();
+
+        normSets.setSize(WidthSize, HeightSize);
+        normSets.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_SettingsButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -165,6 +204,7 @@ public class BackRoom extends javax.swing.JFrame {
     private javax.swing.JTextField DoorCodeField;
     private javax.swing.JButton DownwardsButton;
     private javax.swing.JButton OkButton;
+    private javax.swing.JButton SettingsButton;
     private javax.swing.JButton UpwardsButton;
     private javax.swing.JLabel WrongDoorCodeMessage;
     // End of variables declaration//GEN-END:variables

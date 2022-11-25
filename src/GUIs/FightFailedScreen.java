@@ -10,7 +10,10 @@ public class FightFailedScreen extends javax.swing.JFrame {
         initComponents();
         
         if (GUIs.ForestBattleScreen.GameType.equals("Level")){
-            //Set current Score label to be current score
+            CurrentScoreLabel.setText(Integer.toString(GUIs.LevelModeSelectionScreen.Level -1));
+        }else{
+            YourScoreWasLabel.setVisible(false);
+            CurrentScoreLabel.setVisible(false);
         }
     }
 
@@ -65,15 +68,27 @@ public class FightFailedScreen extends javax.swing.JFrame {
             domains.setVisible(true);
             this.dispose();
         } else if (GUIs.ForestBattleScreen.GameType.equals("Level")) {
-            //IF LEVEL MODE, SET HIGHSCORE AS PREVIOUS LEVEL BEATEN AND SEND THEM BACK TO LEVEL MODE SCREEN
+            Other.Utilities.SetHighScore(GUIs.LevelModeSelectionScreen.Level -1, Other.NEAGame.CurrentCharacter.get(0).getHighScore());
+            GUIs.LevelModeSelectionScreen LevelSelec = new GUIs.LevelModeSelectionScreen();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            LevelSelec.setSize(WidthSize, HeightSize);
+            LevelSelec.setVisible(true);
+            this.dispose();
+        }else if (GUIs.ForestBattleScreen.GameType.equals("Story")){
+            GUIs.DifficultySelectScreen DiffSelec = new GUIs.DifficultySelectScreen();
+
+            int WidthSize = (int) tk.getScreenSize().getWidth();
+            int HeightSize = (int) tk.getScreenSize().getHeight();
+
+            DiffSelec.setSize(WidthSize, HeightSize);
+            DiffSelec.setVisible(true);
+            this.dispose();
         }
-        //NEED TO MAKE A SECTION THAT APPLIES TO STORY MODE
-    
     }//GEN-LAST:event_ExitButtonActionPerformed
 
-/**
- * @param args the command line arguments
- */
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

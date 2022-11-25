@@ -13,14 +13,14 @@ public class SQLStatements {
     private static Objects.User CurrentUser;
     private static Objects.Monster CertainMonster;
     private static Objects.CharacterClass CertainClass;
+    private static Objects.Item CertainItem;
 
     // <editor-fold defaultstate="collapsed" desc="Basic Methods">
-    public static Connection getConnection() {
+    public static Connection getConnection() { //connecting to database
         try {
             Connection connection;
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             connection = DriverManager.getConnection("jdbc:ucanaccess://" + DatabaseLocation, "", "");
-            System.out.println("Connected Successfully");
             return connection;
         } catch (Exception e) {
             System.out.println("Error in connection: " + e);
@@ -28,9 +28,8 @@ public class SQLStatements {
         return null;
     }
 
-    public static ResultSet ExecuteQuery(String sql, Connection connection) {
+    public static ResultSet ExecuteQuery(String sql, Connection connection) { //sending a query to the database
         try {
-
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -39,6 +38,17 @@ public class SQLStatements {
         } catch (Exception e) {
             System.out.println("Error with the ExecuteQuery: " + e);
             return null;
+        }
+    }
+
+    public static void ExecuteUpdate(String sql, Connection connection) { //sending an update to the database
+        try {
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            statement.executeUpdate(sql);
+
+            statement.close();
+        } catch (Exception e) {
+            System.out.println("Error with the ExecuteQuery: " + e);
         }
     }
 
@@ -64,7 +74,6 @@ public class SQLStatements {
 
     public static ArrayList<String> GetExistingEmails() {
         ArrayList<String> ExistingEmails = new ArrayList<>();
-
         try {
             Connection connection = getConnection();
             String sql = "SELECT Email FROM Users";
@@ -75,7 +84,6 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with finding unique emails: " + e);
             return null;
@@ -86,27 +94,16 @@ public class SQLStatements {
     public static void AddNewUser(Objects.User user) {
         try {
             Connection connection = getConnection();
-            String sql = "SELECT * FROM Users";
-            ResultSet resultSet = ExecuteQuery(sql, connection);
+            String sql = "INSERT INTO Users (Username, Email, Password, JoinDate) VALUES ('" + user.getUsername() + "', '" + user.getEmail() + "','" + user.getPassword() + "','" + user.getJoinDate() + "')";
+            ExecuteUpdate(sql, connection);
 
-            if (resultSet.next()) {
-                resultSet.moveToInsertRow();
-                resultSet.updateString("Username", user.getUsername());
-                resultSet.updateString("Email", user.getEmail());
-                resultSet.updateString("Password", user.getPassword());
-                resultSet.updateString("JoinDate", user.getJoinDate());
-                resultSet.insertRow();
-            }
-            resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with adding new user: " + e);
         }
     }
 
-    public static boolean UserLogin(String username, String EnteredPassword, String EnteredEmail) {
-
+    public static boolean UserLogin(String username, String EnteredPassword, String EnteredEmail) { //checking everything is correct for the user to login
         try {
             Connection connection = getConnection();
             String sql = "SELECT * FROM Users WHERE Username = '" + username + "'";
@@ -133,13 +130,11 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with login SQL: " + e);
             return false;
         }
         return CurrentUser != null;
-
     }
 
     public static void UpdateUser(Objects.User user, String Username) {
@@ -178,7 +173,6 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with gettng join date: " + e);
         }
@@ -190,35 +184,17 @@ public class SQLStatements {
     public static void AddNewCharacter(Objects.Character character) {
         try {
             Connection connection = getConnection();
-            String sql = "SELECT * FROM Characters";
-            ResultSet resultSet = ExecuteQuery(sql, connection);
+            String sql = "INSERT INTO Characters (Username, Nickname, CharacterGender, ClassID, DomainAmount, LastDomainDate, HighScore) VALUES ('" + character.getUsername() + "', '" + character.getNickname() + "','" + character.getCharacterGender() + "','" + character.getClassID() + "','" + character.getDomainAmount() + "', '" + character.getLastDomainDate() + "','" + character.getHighScore() + "')";
+            ExecuteUpdate(sql, connection);
 
-            if (resultSet.next()) {
-                resultSet.moveToInsertRow();
-                //Primary Key - auto number
-                resultSet.updateString("Username", character.getUsername());
-                resultSet.updateString("Nickname", character.getNickname());
-                resultSet.updateString("CharacterGender", character.getCharacterGender());
-                resultSet.updateInt("ClassID", character.getClassID());
-                resultSet.updateInt("DomainAmount", character.getDomainAmount());
-                resultSet.updateString("LastDomainDate", character.getLastDomainDate());
-                resultSet.updateInt("HighScore", character.getHighScore());
-                resultSet.insertRow();
-            }
-
-            System.out.println("Added successfully"); // for testing 
-
-            resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with adding new character: " + e);
         }
     }
 
     public static int CountingCharacters(String Username) {
-        int CharacterNumber = -1;
-
+        int CharacterNumber = -1; //set to -1 incase the user has no characters
         try {
             Connection connection = getConnection();
             String sql = "SELECT COUNT (*) AS myInt FROM Characters WHERE Username='" + Username + "'";
@@ -227,14 +203,11 @@ public class SQLStatements {
             if (resultSet.next()) {
                 CharacterNumber = resultSet.getInt("myInt");
             }
-
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with counting characters: " + e);
         }
-
         return CharacterNumber;
     }
 
@@ -266,7 +239,7 @@ public class SQLStatements {
 
             if (resultSet.next()) {
                 resultSet.moveToInsertRow();
-                //CharacterID - autonumber?
+                //CharacterID - autonumber
                 resultSet.updateInt("CharacterID", character.getCharacterID());
                 resultSet.updateString("Username", character.getUsername());
                 resultSet.updateString("Nickname", character.getNickname());
@@ -279,7 +252,6 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with updating character: " + e);
         }
@@ -328,25 +300,24 @@ public class SQLStatements {
         return NormalMonsters;
 
     }
-    
-    public static ArrayList<Objects.Monster> GetBossMonsters(){
+
+    public static ArrayList<Objects.Monster> GetBossMonsters() {
         ArrayList<Objects.Monster> BossMonsters = new ArrayList<>();
-        try{
+        try {
             Connection connection = getConnection();
             String sql = "SELECT * FROM Monsters WHERE MonsterType = 'Boss'";
             ResultSet resultSet = ExecuteQuery(sql, connection);
-            
+
             while (resultSet.next()) {
                 Objects.Monster NextMonster = new Objects.Monster(resultSet.getInt("MonsterID"), resultSet.getString("MonsterName"), resultSet.getInt("MonsterHealth"), resultSet.getInt("MaxMonsterAttack"), resultSet.getInt("MinMonsterAttack"), resultSet.getString("MonsterType"));
                 BossMonsters.add(NextMonster);
             }
             resultSet.close();
             connection.close();
+        } catch (Exception e) {
+            System.out.println("Error with getting boss monsters in SQL class: " + e);
         }
-        catch (Exception e){
-            System.out.println("Error with getting boss monsters in SQL class: "+e);
-        }
-        
+
         return BossMonsters;
     }
 
@@ -383,7 +354,6 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with getting class attacks in SQLStatements: " + e);
         }
@@ -403,7 +373,6 @@ public class SQLStatements {
             }
             resultSet.close();
             connection.close();
-
         } catch (Exception e) {
             System.out.println("Error with Get a certain class in SQLStatements: " + e);
         }
@@ -412,48 +381,94 @@ public class SQLStatements {
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="SQL Statements To Do With Items Table">
-    public static ArrayList<Objects.Item> GetAllDomainItems(String DomainType){
+    public static ArrayList<Objects.Item> GetAllDomainItems(String DomainType) {
         ArrayList<Objects.Item> DomainItems = new ArrayList<>();
-        try{
+        try {
             Connection connection = getConnection();
-            String sql = "SELECT * FROM Items WHERE Domain = '"+DomainType+"'";
+            String sql = "SELECT * FROM Items WHERE Domain = '" + DomainType + "'";
             ResultSet resultSet = ExecuteQuery(sql, connection);
-            
-            while (resultSet.next()){
+
+            while (resultSet.next()) {
                 Objects.Item NextItem = new Objects.Item(resultSet.getInt("ItemID"), resultSet.getString("ItemName"), resultSet.getString("ItemType"), resultSet.getString("Buff"), resultSet.getInt("BuffAmount"), resultSet.getString("Domain"));
                 DomainItems.add(NextItem);
             }
             resultSet.close();
             connection.close();
-        }
-        catch (Exception e){
-            System.out.println("Error with getting all domain items in SQL class: "+e);
+        } catch (Exception e) {
+            System.out.println("Error with getting all domain items in SQL class: " + e);
         }
         return DomainItems;
     }
-    //</editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="SQL Statements To Do With CharacterItems Table">
-    public static void AddNewCharacterItem(Objects.CharacterItem CharacterItem){
+    
+    public static ArrayList<Objects.Item> GettAllItems(){
+        ArrayList<Objects.Item> AllItems = new ArrayList<>();
         try{
             Connection connection = getConnection();
-            String sql = "SELECT * FROM CharacterItems";
+            String sql = "Select * FROM Items";
             ResultSet resultSet = ExecuteQuery(sql, connection);
             
-            if(resultSet.next()){
-                resultSet.moveToInsertRow();
-                //Primary Key - auto number
-                resultSet.updateInt("CharacterID", CharacterItem.getCharacterID());
-                resultSet.updateInt("ItemID", CharacterItem.getItemID());
-                resultSet.insertRow();
+            while (resultSet.next()){
+                Objects.Item NextItem = new Objects.Item(resultSet.getInt("ItemID"), resultSet.getString("ItemName"), resultSet.getString("ItemType"), resultSet.getString("Buff"), resultSet.getInt("BuffAmount"), resultSet.getString("Domain"));
+                AllItems.add(NextItem);
             }
-            
-            System.out.println("Added successfully"); // for testing 
-            
             resultSet.close();
             connection.close();
         }
         catch (Exception e){
-            System.out.println("Error with adding new character item in SQL class "+e);
+            System.out.println("Error with getting all items in SQL class: "+e);
+        }
+        return AllItems;
+    }
+    
+    public static Objects.Item GetCertainItem(String ItemName){
+        try{
+           Connection connection = getConnection();
+           String sql = "SELECT * FROM Items WHERE ItemName= '"+ItemName+"'";
+           ResultSet resultSet = ExecuteQuery(sql, connection);
+           
+            if (resultSet.next()) {
+                CertainItem = new Objects.Item(resultSet.getInt("ItemID"), resultSet.getString("ItemName"), resultSet.getString("ItemType"), resultSet.getString("Buff"), resultSet.getInt("BuffAmount"), resultSet.getString("Domain"));
+            }
+            resultSet.close();
+            connection.close();
+        }
+        catch(Exception e){
+            System.out.println("Error with getting certain item in SQL class: "+e);
+        }
+        return CertainItem;
+    }
+    //</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="SQL Statements To Do With CharacterItems Table">
+    public static void AddNewCharacterItem(Objects.CharacterItem CharacterItem) {
+        try {
+            Connection connection = getConnection();
+            String sql = "INSERT INTO CharacterItems (CharacterID, ItemID) VALUES ('" + CharacterItem.getCharacterID() + "','" + CharacterItem.getItemID() + "')";
+            ExecuteUpdate(sql, connection);
+
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("Error with adding new character item in SQL class " + e);
+        }
+    }
+    
+    public static ArrayList<Objects.CharacterItem> GetCharacterItems(int CharacterID){
+        ArrayList<Objects.CharacterItem> CharacterItems = new ArrayList<>();
+        try{
+            Connection connection = getConnection();
+            String sql = "SELECT * FROM CharacterItems WHERE CharacterID="+CharacterID;
+            ResultSet resultSet = ExecuteQuery(sql, connection);
+            
+            while(resultSet.next()){
+                Objects.CharacterItem NextItem = new Objects.CharacterItem(resultSet.getInt("CharacterItemID"), resultSet.getInt("CharacterID"), resultSet.getInt("ItemID"));
+                CharacterItems.add(NextItem);
+            }
+            resultSet.close();
+            connection.close();
+            return CharacterItems;
+        }
+        catch (Exception e){
+            System.out.println("Error with getting character items in SQL class: "+e);
+            return null;
         }
     }
     //</editor-fold>

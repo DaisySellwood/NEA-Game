@@ -1,5 +1,6 @@
 package GUIs;
 
+import static GUIs.LevelModeSelectionScreen.Health;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,9 +10,12 @@ public class DifficultySelectScreen extends javax.swing.JFrame {
     Toolkit tk = Toolkit.getDefaultToolkit();
     private static Random rand = new Random();
     
+    public static int Modifier;
     public static ArrayList<String> LastMovesStack = new ArrayList<>();
     public static int DoorCode;
     public static boolean BattleCheck;
+    private static Objects.CharacterClass ClassInformation = Other.SQLStatements.GetCertainClass(Other.NEAGame.CurrentCharacter.get(0).getClassID());
+    public static double Health = ClassInformation.getCharacterHealth();
     
     public DifficultySelectScreen() {
         initComponents();
@@ -80,6 +84,7 @@ public class DifficultySelectScreen extends javax.swing.JFrame {
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EasyButtonActionPerformed
         DoorCode = rand.nextInt((9999-1000)+1)+1000;
         BattleCheck = false;
+        Modifier = 0;
         
         GUIs.EntranceRoom entrance = new GUIs.EntranceRoom();
 
@@ -95,6 +100,7 @@ public class DifficultySelectScreen extends javax.swing.JFrame {
         //SET A MODIFIER
         DoorCode = rand.nextInt((9999-1000)+1)+1000;
         BattleCheck = false;
+        Modifier = 5;
         
         GUIs.EntranceRoom entrance = new GUIs.EntranceRoom();
 

@@ -9,6 +9,8 @@ public class NextLevelScreen extends javax.swing.JFrame {
     
     public NextLevelScreen() {
         initComponents();
+        
+        CurrentScoreLabel.setText(Integer.toString(GUIs.LevelModeSelectionScreen.Level -1));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,12 +58,20 @@ public class NextLevelScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void YesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesButtonActionPerformed
-        // TODO add your handling code here:
+        GUIs.LevelModeSelectionScreen.Health = GUIs.ForestBattleScreen.PlayerHealth;
+        
+        GUIs.ForestBattleScreen ForestBattle = new GUIs.ForestBattleScreen();
+
+        int WidthSize = (int) tk.getScreenSize().getWidth();
+        int HeightSize = (int) tk.getScreenSize().getHeight();
+
+        ForestBattle.setSize(WidthSize, HeightSize);
+        ForestBattle.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_YesButtonActionPerformed
 
     private void NoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoButtonActionPerformed
-        
-        //IF CURRENT SCORE IS GREATER THAN CURRENT HIGH SCORE, CHANGE IT
+        Other.Utilities.SetHighScore(GUIs.LevelModeSelectionScreen.Level -1, Other.NEAGame.CurrentCharacter.get(0).getHighScore());
         
         GUIs.LevelModeSelectionScreen LevelModeSelection = new GUIs.LevelModeSelectionScreen();
 
@@ -73,9 +83,6 @@ public class NextLevelScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_NoButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

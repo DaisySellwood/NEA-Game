@@ -1,6 +1,4 @@
-
 package Objects;
-
 
 public class User {
     
@@ -16,9 +14,7 @@ public class User {
         this.JoinDate = JoinDate;
     }
     
-    
     // <editor-fold defaultstate="collapsed" desc="Getters">
-
     public String getUsername() {
         return Username;
     }
@@ -35,9 +31,7 @@ public class User {
         return JoinDate;
     }
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Setters">
-
     public void setUsername(String Username) {
         this.Username = Username;
     }
@@ -54,6 +48,4 @@ public class User {
         this.JoinDate = JoinDate;
     }
     // </editor-fold>
-    
-    
 }

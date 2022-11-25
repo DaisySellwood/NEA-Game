@@ -37,7 +37,6 @@ public class AccountSettings extends javax.swing.JFrame {
         InvalidEmailErrorMessage.setVisible(false);
         UniqueEmailErrorMessage.setVisible(false);
         EmailChangedSuccessfullyMessage.setVisible(false);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -54,17 +53,17 @@ public class AccountSettings extends javax.swing.JFrame {
         InappropriateUsernameErrorMessage = new javax.swing.JLabel();
         LongUsernameErrorMessage = new javax.swing.JLabel();
         UniqueUsernameErrorMessage = new javax.swing.JLabel();
+        EmailConfirmButton = new javax.swing.JButton();
+        EmailField = new javax.swing.JTextField();
+        EmailSection = new javax.swing.JLabel();
+        NewPasswordField = new javax.swing.JPasswordField();
         BackButton = new javax.swing.JButton();
         UsernameButton = new javax.swing.JButton();
         EmailButton = new javax.swing.JButton();
         PasswordButton = new javax.swing.JButton();
         PasswordConfirmButton = new javax.swing.JButton();
-        NewPasswordField = new javax.swing.JPasswordField();
         CurrentPasswordField = new javax.swing.JPasswordField();
         PasswordSection = new javax.swing.JLabel();
-        EmailConfirmButton = new javax.swing.JButton();
-        EmailField = new javax.swing.JTextField();
-        EmailSection = new javax.swing.JLabel();
         UsernameConfirmButton = new javax.swing.JButton();
         UsernameField = new javax.swing.JTextField();
         UsernameSection = new javax.swing.JLabel();
@@ -112,6 +111,24 @@ public class AccountSettings extends javax.swing.JFrame {
         UniqueUsernameErrorMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Unique Username Error Message.png"))); // NOI18N
         getContentPane().add(UniqueUsernameErrorMessage);
         UniqueUsernameErrorMessage.setBounds(720, 680, 500, 300);
+
+        EmailConfirmButton.setBorderPainted(false);
+        EmailConfirmButton.setContentAreaFilled(false);
+        EmailConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailConfirmButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(EmailConfirmButton);
+        EmailConfirmButton.setBounds(790, 890, 370, 170);
+        getContentPane().add(EmailField);
+        EmailField.setBounds(150, 560, 1640, 60);
+
+        EmailSection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Change Email Section.jpg"))); // NOI18N
+        getContentPane().add(EmailSection);
+        EmailSection.setBounds(10, 420, 1910, 673);
+        getContentPane().add(NewPasswordField);
+        NewPasswordField.setBounds(150, 700, 1640, 60);
 
         BackButton.setBorderPainted(false);
         BackButton.setContentAreaFilled(false);
@@ -162,42 +179,12 @@ public class AccountSettings extends javax.swing.JFrame {
         });
         getContentPane().add(PasswordConfirmButton);
         PasswordConfirmButton.setBounds(779, 885, 380, 180);
-
-        NewPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewPasswordFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(NewPasswordField);
-        NewPasswordField.setBounds(151, 700, 1640, 60);
         getContentPane().add(CurrentPasswordField);
         CurrentPasswordField.setBounds(150, 550, 1640, 70);
 
         PasswordSection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Change Password Section.jpg"))); // NOI18N
         getContentPane().add(PasswordSection);
         PasswordSection.setBounds(10, 430, 1910, 650);
-
-        EmailConfirmButton.setBorderPainted(false);
-        EmailConfirmButton.setContentAreaFilled(false);
-        EmailConfirmButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailConfirmButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(EmailConfirmButton);
-        EmailConfirmButton.setBounds(790, 890, 370, 170);
-
-        EmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(EmailField);
-        EmailField.setBounds(150, 550, 1640, 70);
-
-        EmailSection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIs/Change Email Section.jpg"))); // NOI18N
-        getContentPane().add(EmailSection);
-        EmailSection.setBounds(10, 420, 1910, 673);
 
         UsernameConfirmButton.setBorderPainted(false);
         UsernameConfirmButton.setContentAreaFilled(false);
@@ -234,7 +221,6 @@ public class AccountSettings extends javax.swing.JFrame {
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void UsernameConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameConfirmButtonActionPerformed
-        
         UniqueUsernameErrorMessage.setVisible(false);
         LongUsernameErrorMessage.setVisible(false);
         InappropriateUsernameErrorMessage.setVisible(false);
@@ -274,25 +260,22 @@ public class AccountSettings extends javax.swing.JFrame {
              if (UniqueUsernameErrorMessage.isVisible()== true) {
                 break;
             }
-             
              break;
         }
         
         if (check == false){
+            //updating username in user table
             Objects.User ChangingUsername = new Objects.User(NewUsername, Other.NEAGame.CurrentUser.get(0).getEmail(),Other.NEAGame.CurrentUser.get(0).getPassword(),Other.NEAGame.CurrentUser.get(0).getJoinDate());
             Other.SQLStatements.UpdateUser(ChangingUsername, Other.NEAGame.CurrentUser.get(0).getUsername());
             Other.Utilities.UpdateCurrentUser(ChangingUsername);
-            //UPDATE ALL OF THE USERNAMES IN THE CHARACTER TABLE TOO
+            //Upadting usernames in character table too
             ArrayList<Objects.Character> UserCharacters = Other.SQLStatements.GetAllUserCharacters(Other.NEAGame.CurrentCharacter.get(0).getUsername());
             for (int i = 0; i < UserCharacters.size(); i++) {
                 Objects.Character ChangingCharacterUsername = new Objects.Character(UserCharacters.get(i).getCharacterID(), NewUsername, UserCharacters.get(i).getNickname(), UserCharacters.get(i).getCharacterGender(), UserCharacters.get(i).getClassID(), UserCharacters.get(i).getDomainAmount(), UserCharacters.get(i).getLastDomainDate(), UserCharacters.get(i).getHighScore());
                 Other.SQLStatements.UpdateCharacter(ChangingCharacterUsername, Other.NEAGame.CurrentUser.get(0).getUsername());
             }
-            
             UsernameChangedSuccessfullyMessage.setVisible(true);
         }
-
-
     }//GEN-LAST:event_UsernameConfirmButtonActionPerformed
 
     private void UsernameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameButtonActionPerformed
@@ -384,15 +367,12 @@ public class AccountSettings extends javax.swing.JFrame {
             catch (Exception e){
                 System.out.println("Error with hashing new password in account settings: "+e);
             }
-            
+            //updating password in users table
             Objects.User ChangingPassword = new Objects.User(Other.NEAGame.CurrentUser.get(0).getUsername(), Other.NEAGame.CurrentUser.get(0).getEmail(), NewHashedPassword,Other.NEAGame.CurrentUser.get(0).getJoinDate());
             Other.SQLStatements.UpdateUser(ChangingPassword, Other.NEAGame.CurrentUser.get(0).getUsername());
             Other.Utilities.UpdateCurrentUser(ChangingPassword);
             PasswordChangedSuccessfullyMessage.setVisible(true);
         }
-        
-        
-        
     }//GEN-LAST:event_PasswordConfirmButtonActionPerformed
 
     private void EmailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailButtonActionPerformed
@@ -455,34 +435,18 @@ public class AccountSettings extends javax.swing.JFrame {
             if(UniqueEmailErrorMessage.isVisible() == true){
                 break;
             }
-            
             break;
         }
         
         if (check == false){
+            //updating email in users table
             Objects.User ChangingEmail = new Objects.User(Other.NEAGame.CurrentUser.get(0).getUsername(), NewEmail, Other.NEAGame.CurrentUser.get(0).getPassword(),Other.NEAGame.CurrentUser.get(0).getJoinDate());
             Other.SQLStatements.UpdateUser(ChangingEmail, Other.NEAGame.CurrentUser.get(0).getUsername());
             Other.Utilities.UpdateCurrentUser(ChangingEmail);
             EmailChangedSuccessfullyMessage.setVisible(true);
         }
-        
-        
-        
-        
-        
     }//GEN-LAST:event_EmailConfirmButtonActionPerformed
 
-    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmailFieldActionPerformed
-
-    private void NewPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordFieldActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
